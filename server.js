@@ -32,21 +32,19 @@ app.use(express.json());
 
 app.use(morgan('combined'));
 
-// Socket.io connection
+
 io.on('connection', (socket) => {
   console.log('New client connected');
 
-  // Handle disconnect
+ 
   socket.on('disconnect', () => {
     console.log('Client disconnected');
   });
 });
 
-// Routes
 app.use('/v1/auth', authRoutes);
-app.use('/v1/tasks', taskRoutes(io)); // Pass the io instance to task routes
+app.use('/v1/tasks', taskRoutes(io)); 
 
-// Start Server
 const PORT = process.env.PORT || 8080;
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
